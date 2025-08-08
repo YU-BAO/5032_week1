@@ -128,6 +128,52 @@
         </div>
       </div>
     </section>
+
+    <!-- Activity 3: v-for Directive -->
+    <section class="data-section">
+      <h3 class="section-title">🔄 Activity 3: v-for Directive</h3>
+      
+      <!-- Activity 3.1: Render all author names and birth years -->
+      <div class="computed-section">
+        <h4 class="computed-title">Activity 3.1: All Authors with Birth Years</h4>
+        <div class="computed-result">
+          <h5>Iterating through Arrays</h5>
+          <ul class="author-birth-list">
+            <li v-for="author in authors" :key="author.id" class="author-birth-item">
+              {{ author.name }} ({{ author.birthYear }})
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Activity 3.2: Render modern authors (born after 1850) -->
+      <div class="computed-section">
+        <h4 class="computed-title">Activity 3.2: Modern Authors (Born After 1850)</h4>
+        <div class="computed-result">
+          <h5>Filtering Arrays</h5>
+          <p class="result-description">Authors born after 1850:</p>
+          <ul class="modern-authors-list">
+            <li v-for="author in modernAuthors" :key="author.id" class="modern-author-item">
+              {{ author.name }} ({{ author.birthYear }})
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Activity 3.3: Render all famous works -->
+      <div class="computed-section">
+        <h4 class="computed-title">Activity 3.3: All Famous Works</h4>
+        <div class="computed-result">
+          <h5>Mapping Arrays</h5>
+          <p class="result-description">Famous works:</p>
+          <ul class="famous-works-list">
+            <li v-for="work in allFamousWorks" :key="work" class="work-item">
+              {{ work }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -347,6 +393,66 @@ const authorById = computed(() =>
   padding: 1rem;
 }
 
+/* Activity 3: v-for Directive Styles */
+.result-description {
+  font-weight: 600;
+  color: #3498db;
+  margin-bottom: 1rem;
+}
+
+.author-birth-list,
+.modern-authors-list,
+.famous-works-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.author-birth-item,
+.modern-author-item,
+.work-item {
+  background: #f8f9fa;
+  margin: 0.5rem 0;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+  transition: all 0.2s ease;
+}
+
+.author-birth-item:hover,
+.modern-author-item:hover,
+.work-item:hover {
+  background: #e3f2fd;
+  transform: translateX(5px);
+  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.2);
+}
+
+.modern-author-item {
+  border-left-color: #e74c3c;
+  background: #fdf2f2;
+}
+
+.modern-author-item:hover {
+  background: #fce4ec;
+}
+
+.work-item {
+  border-left-color: #27ae60;
+  background: #f1f8e9;
+}
+
+.work-item:hover {
+  background: #e8f5e8;
+}
+
+.computed-result h5 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  border-bottom: 2px solid #ecf0f1;
+  padding-bottom: 0.5rem;
+}
+
 @media (max-width: 768px) {
   .json-activity {
     padding: 1rem;
@@ -377,6 +483,19 @@ const authorById = computed(() =>
   .works-grid {
     flex-direction: column;
     gap: 0.3rem;
+  }
+  
+  .author-birth-item,
+  .modern-author-item,
+  .work-item {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+  }
+  
+  .author-birth-item:hover,
+  .modern-author-item:hover,
+  .work-item:hover {
+    transform: translateX(2px);
   }
 }
 </style> 
