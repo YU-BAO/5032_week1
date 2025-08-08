@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "J.K. Rowling",
+    "nationality": "British",
+    "birthYear": 1965,
+    "genre": "Fantasy",
+    "famousWorks": ["Harry Potter series", "The Casual Vacancy"]
+  },
+  {
+    "id": 2,
+    "name": "George Orwell",
+    "nationality": "British",
+    "birthYear": 1903,
+    "genre": "Dystopian Fiction",
+    "famousWorks": ["1984", "Animal Farm"]
+  },
+  {
+    "id": 3,
+    "name": "Agatha Christie",
+    "nationality": "British",
+    "birthYear": 1890,
+    "genre": "Mystery",
+    "famousWorks": ["Murder on the Orient Express", "The Murder of Roger Ackroyd"]
+  },
+  {
+    "id": 4,
+    "name": "Stephen King",
+    "nationality": "American",
+    "birthYear": 1947,
+    "genre": "Horror",
+    "famousWorks": ["The Shining", "IT", "Carrie"]
+  },
+  {
+    "id": 5,
+    "name": "Jane Austen",
+    "nationality": "British",
+    "birthYear": 1775,
+    "genre": "Romance",
+    "famousWorks": ["Pride and Prejudice", "Sense and Sensibility"]
+  }
+] 

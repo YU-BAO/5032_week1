@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Barnes & Noble",
+    "location": "New York, USA",
+    "established": 1886,
+    "type": "Chain Store",
+    "specialties": ["General Books", "Magazines", "Digital Books"]
+  },
+  {
+    "id": 2,
+    "name": "Waterstones",
+    "location": "London, UK",
+    "established": 1982,
+    "type": "Chain Store",
+    "specialties": ["Literature", "Academic Books", "Children's Books"]
+  },
+  {
+    "id": 3,
+    "name": "Shakespeare and Company",
+    "location": "Paris, France",
+    "established": 1951,
+    "type": "Independent Store",
+    "specialties": ["English Literature", "Travel Guides", "Poetry"]
+  },
+  {
+    "id": 4,
+    "name": "Powell's Books",
+    "location": "Portland, USA",
+    "established": 1971,
+    "type": "Independent Store",
+    "specialties": ["New & Used Books", "Rare Books", "Technical Books"]
+  },
+  {
+    "id": 5,
+    "name": "Dymocks",
+    "location": "Sydney, Australia",
+    "established": 1879,
+    "type": "Chain Store",
+    "specialties": ["Australian Literature", "Educational Books", "Business Books"]
+  }
+] 
