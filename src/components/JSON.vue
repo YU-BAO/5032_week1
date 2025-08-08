@@ -174,11 +174,57 @@
         </div>
       </div>
     </section>
+
+    <!-- Activity 4: v-if and v-show Directives -->
+    <section class="data-section">
+      <h3 class="section-title">🔀 Activity 4: v-if and v-show Directives</h3>
+      
+      <!-- Activity 4.1: Toggle Message Visibility -->
+      <div class="computed-section">
+        <h4 class="computed-title">Activity 4.1: Toggle Message Visibility When Button is Clicked</h4>
+        <div class="computed-result">
+          <h5>v-if & v-else</h5>
+          <p class="result-description">Toggle visibility based on a condition.</p>
+          
+          <div class="toggle-demo">
+            <button 
+              @click="showMessage = !showMessage" 
+              class="toggle-button"
+            >
+              Toggle Message
+            </button>
+            
+            <div class="message-container">
+              <p 
+                v-if="showMessage" 
+                class="message success"
+              >
+                ✨ You're a Vue superstar! ✨
+              </p>
+              <p 
+                v-else 
+                class="message prompt"
+              >
+                Click the button to see a message.
+              </p>
+            </div>
+          </div>
+          
+          <!-- Status indicator -->
+          <div class="status-indicator">
+            <span class="status-label">Current Status:</span>
+            <span :class="['status-value', showMessage ? 'active' : 'inactive']">
+              {{ showMessage ? 'Message Visible' : 'Message Hidden' }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 
 // Activity 1: Import JSON files (authors.json and bookstores.json)
 import authors from "../assets/json/authors.json"
@@ -203,6 +249,9 @@ const searchedAuthor = computed(() =>
 const authorById = computed(() =>
   authors.find(author => author.id === 1)
 );
+
+// Activity 4.1: Toggle Message Visibility
+const showMessage = ref(false);
 </script>
 
 <style scoped>
@@ -453,6 +502,116 @@ const authorById = computed(() =>
   padding-bottom: 0.5rem;
 }
 
+/* Activity 4: v-if and v-show Directives Styles */
+.toggle-demo {
+  text-align: center;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 10px;
+  margin: 1rem 0;
+}
+
+.toggle-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.toggle-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.toggle-button:active {
+  transform: translateY(0);
+}
+
+.message-container {
+  margin: 2rem 0;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.message {
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.message.success {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+  color: #00695c;
+  border: 2px solid #4caf50;
+  box-shadow: 0 4px 15px rgba(67, 233, 123, 0.3);
+}
+
+.message.prompt {
+  background: #fff3e0;
+  color: #f57c00;
+  border: 2px solid #ff9800;
+  box-shadow: 0 4px 15px rgba(255, 152, 0, 0.2);
+}
+
+.status-indicator {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.status-label {
+  font-weight: 600;
+  color: #555;
+}
+
+.status-value {
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.status-value.active {
+  background: #e8f5e8;
+  color: #2e7d32;
+  border: 1px solid #4caf50;
+}
+
+.status-value.inactive {
+  background: #fdf2f2;
+  color: #c62828;
+  border: 1px solid #f44336;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (max-width: 768px) {
   .json-activity {
     padding: 1rem;
@@ -496,6 +655,25 @@ const authorById = computed(() =>
   .modern-author-item:hover,
   .work-item:hover {
     transform: translateX(2px);
+  }
+  
+  .toggle-demo {
+    padding: 1rem;
+  }
+  
+  .toggle-button {
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .message {
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+  }
+  
+  .status-indicator {
+    flex-direction: column;
+    gap: 0.3rem;
   }
 }
 </style> 
