@@ -3,15 +3,23 @@
     <div class="row">
       <div class="col-12 col-md-8 offset-md-2">
         <h1 class="text-center">User Information Form / Credentials</h1>
-        <form @submit.prevent="submitForm" lang="en">
+        <form @submit.prevent="submitForm">
           <div class="row mb-3">
             <div class="col-12 col-md-6">
               <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" id="username" required v-model="formData.username" title="Please enter your username">
+              <input type="text" class="form-control" id="username" 
+                @blur="() => validateName(true)"
+                @input="() => validateName(false)"
+                v-model="formData.username">
+              <div v-if="errors.username" class="text-danger">{{ errors.username }}</div>
             </div>
             <div class="col-12 col-md-6">
               <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password" minlength="4" maxlength="10" v-model="formData.password" title="Password must be 4-10 characters long">
+              <input type="password" class="form-control" id="password"
+                @blur="() => validatePassword(true)"
+                @input="() => validatePassword(false)"
+                v-model="formData.password">
+              <div v-if="errors.password" class="text-danger">{{ errors.password }}</div>
             </div>
           </div>
           <div class="row mb-3">
@@ -23,17 +31,25 @@
             </div>
             <div class="col-12 col-md-6">
               <label for="gender" class="form-label">Gender</label>
-              <select class="form-select" id="gender" required v-model="formData.gender" title="Please select your gender">
+              <select class="form-select" id="gender" 
+                @blur="() => validateGender(true)"
+                @change="() => validateGender(false)"
+                v-model="formData.gender">
                 <option value="">Please select...</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="other">Other</option>
               </select>
+              <div v-if="errors.gender" class="text-danger">{{ errors.gender }}</div>
             </div>
           </div>
           <div class="mb-3">
             <label for="reason" class="form-label">Reason for joining</label>
-            <textarea class="form-control" id="reason" rows="3" required minlength="10" maxlength="200" v-model="formData.reason" title="Please enter your reason for joining (10-200 characters)"></textarea>
+            <textarea class="form-control" id="reason" rows="3"
+              @blur="() => validateReason(true)"
+              @input="() => validateReason(false)"
+              v-model="formData.reason"></textarea>
+            <div v-if="errors.reason" class="text-danger">{{ errors.reason }}</div>
           </div>
           <div class="text-center">
             <button type="submit" class="btn btn-primary me-2">Submit</button>
@@ -80,14 +96,83 @@ const formData = ref({
 // Array to store submitted cards
 const submittedCards = ref([])
 
+// Errors object to store validation errors
+const errors = ref({
+  username: null,
+  password: null,
+  resident: null,
+  gender: null,
+  reason: null
+})
+
+// Validate username function
+const validateName = (blur) => {
+  if (formData.value.username.length < 3) {
+    if (blur) errors.value.username = "Name must be at least 3 characters"
+  } else {
+    errors.value.username = null
+  }
+}
+
+// Validate password function
+const validatePassword = (blur) => {
+  const password = formData.value.password
+  const minLength = 8
+  const hasUppercase = /[A-Z]/.test(password)
+  const hasLowercase = /[a-z]/.test(password)
+  const hasNumber = /\d/.test(password)
+  const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password)
+  
+  if (password.length < minLength) {
+    if (blur) errors.value.password = `Password must be at least ${minLength} characters long.`
+  } else if (!hasUppercase) {
+    if (blur) errors.value.password = "Password must contain at least one uppercase letter."
+  } else if (!hasLowercase) {
+    if (blur) errors.value.password = "Password must contain at least one lowercase letter."
+  } else if (!hasNumber) {
+    if (blur) errors.value.password = "Password must contain at least one number."
+  } else if (!hasSpecialChar) {
+    if (blur) errors.value.password = "Password must contain at least one special character."
+  } else {
+    errors.value.password = null
+  }
+}
+
+// Validate gender function
+const validateGender = (blur) => {
+  if (!formData.value.gender) {
+    if (blur) errors.value.gender = "Please select your gender"
+  } else {
+    errors.value.gender = null
+  }
+}
+
+// Validate reason function
+const validateReason = (blur) => {
+  const reason = formData.value.reason
+  if (reason.length < 10) {
+    if (blur) errors.value.reason = "Reason must be at least 10 characters"
+  } else if (reason.length > 200) {
+    if (blur) errors.value.reason = "Reason must not exceed 200 characters"
+  } else {
+    errors.value.reason = null
+  }
+}
+
 // Submit form function
 const submitForm = () => {
-  submittedCards.value.push({
-    ...formData.value
-  })
-  console.log('Form submitted:', formData.value)
-  // Clear form after submission
-  clearForm()
+  validateName(true)
+  validatePassword(true)
+  validateGender(true)
+  validateReason(true)
+  if (!errors.value.username && !errors.value.password && !errors.value.gender && !errors.value.reason) {
+    submittedCards.value.push({
+      ...formData.value
+    })
+    console.log('Form submitted:', formData.value)
+    // Clear form after submission
+    clearForm()
+  }
 }
 
 // Clear form function
@@ -98,6 +183,14 @@ const clearForm = () => {
     isAustralian: false,
     gender: '',
     reason: ''
+  }
+  // Clear all errors
+  errors.value = {
+    username: null,
+    password: null,
+    resident: null,
+    gender: null,
+    reason: null
   }
 }
 </script>
