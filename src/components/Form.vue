@@ -3,15 +3,15 @@
     <div class="row">
       <div class="col-12 col-md-8 offset-md-2">
         <h1 class="text-center">User Information Form / Credentials</h1>
-        <form @submit.prevent="submitForm">
+        <form @submit.prevent="submitForm" lang="en">
           <div class="row mb-3">
             <div class="col-12 col-md-6">
               <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" id="username" v-model="formData.username">
+              <input type="text" class="form-control" id="username" required v-model="formData.username" title="Please enter your username">
             </div>
             <div class="col-12 col-md-6">
               <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password" v-model="formData.password">
+              <input type="password" class="form-control" id="password" minlength="4" maxlength="10" v-model="formData.password" title="Password must be 4-10 characters long">
             </div>
           </div>
           <div class="row mb-3">
@@ -23,7 +23,8 @@
             </div>
             <div class="col-12 col-md-6">
               <label for="gender" class="form-label">Gender</label>
-              <select class="form-select" id="gender" v-model="formData.gender">
+              <select class="form-select" id="gender" required v-model="formData.gender" title="Please select your gender">
+                <option value="">Please select...</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="other">Other</option>
@@ -32,7 +33,7 @@
           </div>
           <div class="mb-3">
             <label for="reason" class="form-label">Reason for joining</label>
-            <textarea class="form-control" id="reason" rows="3" v-model="formData.reason"></textarea>
+            <textarea class="form-control" id="reason" rows="3" required minlength="10" maxlength="200" v-model="formData.reason" title="Please enter your reason for joining (10-200 characters)"></textarea>
           </div>
           <div class="text-center">
             <button type="submit" class="btn btn-primary me-2">Submit</button>
@@ -72,7 +73,7 @@ const formData = ref({
   username: '',
   password: '',
   isAustralian: false,
-  gender: 'male',
+  gender: '',
   reason: ''
 })
 
@@ -95,7 +96,7 @@ const clearForm = () => {
     username: '',
     password: '',
     isAustralian: false,
-    gender: 'male',
+    gender: '',
     reason: ''
   }
 }
