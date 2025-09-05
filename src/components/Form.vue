@@ -1,79 +1,158 @@
 <template>
-  <div class="container mt-5">
-    <div class="row">
-      <div class="col-12 col-md-8 offset-md-2">
-        <h1 class="text-center">User Information Form / Credentials</h1>
-        <form @submit.prevent="submitForm">
-          <div class="row mb-3">
-            <div class="col-12 col-md-6">
-              <label for="username" class="form-label">Username</label>
-              <input type="text" class="form-control" id="username" 
-                @blur="() => validateName(true)"
-                @input="() => validateName(false)"
-                v-model="formData.username">
-              <div v-if="errors.username" class="text-danger">{{ errors.username }}</div>
-            </div>
-            <div class="col-12 col-md-6">
-              <label for="password" class="form-label">Password</label>
-              <input type="password" class="form-control" id="password"
-                @blur="() => validatePassword(true)"
-                @input="() => validatePassword(false)"
-                v-model="formData.password">
-              <div v-if="errors.password" class="text-danger">{{ errors.password }}</div>
-            </div>
+  <div class="form-container">
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+          <!-- Form Header -->
+          <div class="text-center mb-5">
+            <h1 class="form-title mb-3">
+              <i class="fas fa-file-alt me-3"></i>W5. Library Registration Form
+            </h1>
+            <p class="form-subtitle">Let's build some more advanced features into our form.</p>
           </div>
-          <div class="row mb-3">
-            <div class="col-12 col-md-6">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" id="isAustralian" v-model="formData.isAustralian">
-                <label class="form-check-label" for="isAustralian">Australian Resident?</label>
+
+          <!-- Registration Form -->
+          <div class="form-wrapper">
+            <form @submit.prevent="submitForm">
+              <!-- Username and Gender Row -->
+              <div class="row mb-4">
+                <div class="col-12 col-md-6 mb-3 mb-md-0">
+                  <label for="username" class="form-label">Username</label>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    id="username" 
+                    @blur="() => validateName(true)"
+                    @input="() => validateName(false)"
+                    v-model="formData.username">
+                  <div v-if="errors.username" class="error-message">
+                    {{ errors.username }}
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label for="gender" class="form-label">Gender</label>
+                  <select 
+                    class="form-select" 
+                    id="gender" 
+                    @blur="() => validateGender(true)"
+                    @change="() => validateGender(false)"
+                    v-model="formData.gender">
+                    <option value="">Please select...</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <div v-if="errors.gender" class="error-message">
+                    {{ errors.gender }}
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="col-12 col-md-6">
-              <label for="gender" class="form-label">Gender</label>
-              <select class="form-select" id="gender" 
-                @blur="() => validateGender(true)"
-                @change="() => validateGender(false)"
-                v-model="formData.gender">
-                <option value="">Please select...</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
-              <div v-if="errors.gender" class="text-danger">{{ errors.gender }}</div>
-            </div>
+
+              <!-- Password and Confirm Password Row -->
+              <div class="row mb-4">
+                <div class="col-12 col-md-6 mb-3 mb-md-0">
+                  <label for="password" class="form-label">Password</label>
+                  <input 
+                    type="password" 
+                    class="form-control" 
+                    id="password"
+                    @blur="() => validatePassword(true)"
+                    @input="() => validatePassword(false)"
+                    v-model="formData.password">
+                  <div v-if="errors.password" class="error-message">
+                    {{ errors.password }}
+                  </div>
+                </div>
+                <div class="col-12 col-md-6">
+                  <label for="confirmPassword" class="form-label">Confirm password</label>
+                  <input 
+                    type="password" 
+                    class="form-control" 
+                    id="confirmPassword"
+                    @blur="() => validateConfirmPassword(true)"
+                    @input="() => validateConfirmPassword(false)"
+                    v-model="formData.confirmPassword">
+                  <div v-if="errors.confirmPassword" class="error-message">
+                    {{ errors.confirmPassword }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Australian Resident Checkbox -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <div class="form-check">
+                    <input 
+                      type="checkbox" 
+                      class="form-check-input" 
+                      id="isAustralian" 
+                      v-model="formData.isAustralian">
+                    <label class="form-check-label" for="isAustralian">
+                      Australian Resident?
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Reason for Joining -->
+              <div class="mb-4">
+                <label for="reason" class="form-label">Reason for joining</label>
+                <textarea 
+                  class="form-control" 
+                  id="reason" 
+                  rows="4"
+                  @blur="() => validateReason(true)"
+                  @input="() => validateReason(false)"
+                  v-model="formData.reason"></textarea>
+                <div v-if="errors.reason" class="error-message">
+                  {{ errors.reason }}
+                </div>
+              </div>
+
+              <!-- Suburb Field -->
+              <div class="mb-4">
+                <label for="suburb" class="form-label">Suburb</label>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  id="suburb" 
+                  v-model="formData.suburb"
+                  placeholder="Clayton">
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="d-flex gap-3 justify-content-center">
+                <button type="submit" class="btn btn-primary px-4">Submit</button>
+                <button type="button" class="btn btn-secondary px-4" @click="clearForm">Clear</button>
+              </div>
+            </form>
           </div>
-          <div class="mb-3">
-            <label for="reason" class="form-label">Reason for joining</label>
-            <textarea class="form-control" id="reason" rows="3"
-              @blur="() => validateReason(true)"
-              @input="() => validateReason(false)"
-              v-model="formData.reason"></textarea>
-            <div v-if="errors.reason" class="text-danger">{{ errors.reason }}</div>
-          </div>
-          <div class="text-center">
-            <button type="submit" class="btn btn-primary me-2">Submit</button>
-            <button type="button" class="btn btn-secondary" @click="clearForm">Clear</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    
-    <!-- Display submitted cards -->
-    <div class="row mt-5" v-if="submittedCards.length">
-      <div class="col-12">
-        <div class="d-flex flex-wrap justify-content-start">
-          <div v-for="(card, index) in submittedCards" :key="index" class="card m-2" style="width: 18rem; min-width: 280px;">
-          <div class="card-header">
-            User Information
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Username: {{ card.username }}</li>
-            <li class="list-group-item">Password: {{ card.password }}</li>
-            <li class="list-group-item">Australian Resident: {{ card.isAustralian ? 'Yes' : 'No' }}</li>
-            <li class="list-group-item">Gender: {{ card.gender }}</li>
-            <li class="list-group-item">Reason: {{ card.reason }}</li>
-          </ul>
+
+          <!-- Data Table Section -->
+          <div v-if="submittedCards.length" class="mt-5">
+            <h3 class="mb-3">This is a PrimeVue DataTable.</h3>
+            <DataTable 
+              :value="submittedCards" 
+              tableStyle="min-width: 50rem"
+              :paginator="true"
+              :rows="5"
+              stripedRows
+              responsiveLayout="scroll">
+              <Column field="username" header="Username" :sortable="true"></Column>
+              <Column field="password" header="Password" :sortable="true">
+                <template #body="slotProps">
+                  <span>••••••••</span>
+                </template>
+              </Column>
+              <Column field="isAustralian" header="Australian Resident" :sortable="true">
+                <template #body="slotProps">
+                  {{ slotProps.data.isAustralian ? 'Yes' : 'No' }}
+                </template>
+              </Column>
+              <Column field="gender" header="Gender" :sortable="true"></Column>
+              <Column field="reason" header="Reason" :sortable="true"></Column>
+              <Column field="suburb" header="Suburb" :sortable="true"></Column>
+            </DataTable>
           </div>
         </div>
       </div>
@@ -83,14 +162,18 @@
 
 <script setup>
 import { ref } from 'vue'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
 
 // Form data reactive object
 const formData = ref({
   username: '',
   password: '',
+  confirmPassword: '',
   isAustralian: false,
   gender: '',
-  reason: ''
+  reason: '',
+  suburb: ''
 })
 
 // Array to store submitted cards
@@ -100,6 +183,7 @@ const submittedCards = ref([])
 const errors = ref({
   username: null,
   password: null,
+  confirmPassword: null,
   resident: null,
   gender: null,
   reason: null
@@ -136,6 +220,23 @@ const validatePassword = (blur) => {
   } else {
     errors.value.password = null
   }
+  
+  // Also validate confirm password when password changes
+  if (formData.value.confirmPassword) {
+    validateConfirmPassword(false)
+  }
+}
+
+// Validate confirm password function
+const validateConfirmPassword = (blur) => {
+  const password = formData.value.password
+  const confirmPassword = formData.value.confirmPassword
+  
+  if (confirmPassword && password !== confirmPassword) {
+    if (blur) errors.value.confirmPassword = "Passwords do not match."
+  } else {
+    errors.value.confirmPassword = null
+  }
 }
 
 // Validate gender function
@@ -163,9 +264,10 @@ const validateReason = (blur) => {
 const submitForm = () => {
   validateName(true)
   validatePassword(true)
+  validateConfirmPassword(true)
   validateGender(true)
   validateReason(true)
-  if (!errors.value.username && !errors.value.password && !errors.value.gender && !errors.value.reason) {
+  if (!errors.value.username && !errors.value.password && !errors.value.confirmPassword && !errors.value.gender && !errors.value.reason) {
     submittedCards.value.push({
       ...formData.value
     })
@@ -180,14 +282,17 @@ const clearForm = () => {
   formData.value = {
     username: '',
     password: '',
+    confirmPassword: '',
     isAustralian: false,
     gender: '',
-    reason: ''
+    reason: '',
+    suburb: ''
   }
   // Clear all errors
   errors.value = {
     username: null,
     password: null,
+    confirmPassword: null,
     resident: null,
     gender: null,
     reason: null
@@ -196,38 +301,140 @@ const clearForm = () => {
 </script>
 
 <style scoped>
-.card {
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.form-container {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  padding-top: 2rem;
 }
 
-.card-header {
-  background-color: #275FDA;
+.form-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.form-subtitle {
+  color: #666;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.form-wrapper {
+  background: white;
+  padding: 3rem;
+  border-radius: 0;
+  box-shadow: none;
+  border: 1px solid #e9ecef;
+}
+
+.form-label {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.form-control, .form-select {
+  border: 2px solid #dee2e6;
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: border-color 0.15s ease-in-out;
+  background-color: #fff;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #007bff;
+  box-shadow: none;
+}
+
+.form-check {
+  margin: 1rem 0;
+}
+
+.form-check-input {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 0.5rem;
+}
+
+.form-check-label {
+  font-size: 1rem;
+  color: #333;
+  margin-left: 0.5rem;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.btn {
+  border-radius: 6px;
+  font-weight: 500;
+  padding: 0.75rem 2rem;
+  font-size: 1rem;
+  border: none;
+}
+
+.btn-primary {
+  background-color: #007bff;
   color: white;
-  padding: 10px;
-  border-radius: 10px 10px 0 0;
 }
 
-.list-group-item {
-  padding: 10px;
+.btn-primary:hover {
+  background-color: #0056b3;
 }
 
-/* Mobile-specific adjustments */
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #545b62;
+}
+
+/* Table styling */
+:deep(.p-datatable) {
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+:deep(.p-datatable .p-datatable-header) {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+:deep(.p-datatable .p-datatable-tbody > tr) {
+  border-bottom: 1px solid #e9ecef;
+}
+
+:deep(.p-datatable .p-datatable-tbody > tr:hover) {
+  background-color: #f8f9fa;
+}
+
+/* Responsive */
 @media (max-width: 768px) {
-  .container {
-    padding-left: 15px;
-    padding-right: 15px;
+  .form-wrapper {
+    padding: 2rem 1.5rem;
   }
   
-  .card {
-    width: 100% !important;
-    min-width: unset !important;
-    margin: 0.5rem 0 !important;
+  .form-title {
+    font-size: 1.75rem;
   }
   
-  .d-flex {
+  .btn {
+    width: 100%;
+    margin-bottom: 0.5rem;
+  }
+  
+  .d-flex.gap-3 {
     flex-direction: column;
+    gap: 0 !important;
   }
 }
 </style> 
