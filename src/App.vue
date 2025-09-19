@@ -74,6 +74,11 @@ onMounted(() => {
                 About
               </router-link>
             </li>
+            <li class="nav-item">
+              <router-link class="nav-link" to="/addbook" :class="{ active: $route.name === 'AddBook' }">
+                Add Book
+              </router-link>
+            </li>
           </ul>
           
           <!-- User Authentication Navigation -->
@@ -88,6 +93,11 @@ onMounted(() => {
               <li class="nav-item">
                 <router-link class="nav-link" to="/login" :class="{ active: $route.name === 'Login' }">
                   Login
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/firelogin" :class="{ active: $route.name === 'FireLogin' }">
+                  Firebase Login
                 </router-link>
               </li>
             </template>
