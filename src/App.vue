@@ -83,24 +83,19 @@ onMounted(() => {
           
           <!-- User Authentication Navigation -->
           <ul class="navbar-nav ms-auto">
-            <!-- Show when user is NOT logged in -->
-            <template v-if="!currentUser">
-              <li class="nav-item">
-                <router-link class="nav-link" to="/register" :class="{ active: $route.name === 'Register' }">
-                  Register
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link class="nav-link" to="/login" :class="{ active: $route.name === 'Login' }">
-                  Login
-                </router-link>
-              </li>
-              <li class="nav-item">
-                <router-link class="nav-link" to="/firelogin" :class="{ active: $route.name === 'FireLogin' }">
-                  Firebase Login
-                </router-link>
-              </li>
-            </template>
+                                    <!-- Show when user is NOT logged in -->
+                        <template v-if="!currentUser">
+                          <li class="nav-item">
+                            <router-link class="nav-link" to="/register" :class="{ active: $route.name === 'Register' }">
+                              Register
+                            </router-link>
+                          </li>
+                          <li class="nav-item">
+                            <router-link class="nav-link" to="/firelogin" :class="{ active: $route.name === 'FireLogin' }">
+                              Login
+                            </router-link>
+                          </li>
+                        </template>
             
             <!-- Show when user IS logged in -->
             <template v-else>
